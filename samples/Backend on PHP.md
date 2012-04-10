@@ -137,7 +137,7 @@ It's a sample implementation to illustrate chunking. It should probably not be u
     	$dest_file = $temp_dir.'/'.$_POST['resumableFilename'].'.part'.$_POST['resumableChunkNumber'];
 	
     	// create the temporary directory
-	    @mkdir($dir, 0777, true);
+	    @mkdir($temp_dir, 0777, true);
 	
     	// move the temporary file
 	    if (!@move_uploaded_file($file['tmp_name'], $dest_file)) {
