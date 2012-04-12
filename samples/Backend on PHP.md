@@ -69,7 +69,13 @@ It's a sample implementation to illustrate chunking. It should probably not be u
     	}
     }
 	
-	
+	function dirSize($directory) {
+    	$size = 0;
+    	foreach(new RecursiveIteratorIterator(new RecursiveDirectoryIterator($directory)) as $file){
+        	$size+=$file->getSize();
+    	}
+    	return $size;
+	}
 	
     /**
      *
@@ -91,7 +97,12 @@ It's a sample implementation to illustrate chunking. It should probably not be u
 	    }
 
     	// check that all the parts are present
-	    if ($total_files * $chunkSize >=  $totalSize) {
+    	$localsize = 0;
+    	if (!is_null($temp_dir)){
+        	$localsize = dirSize($temp_dir);
+    	}
+
+    	if ($localsize >=  $totalSize) {
 	   
 		    // create the final destination file 
     		if (($fp = @fopen($fileName, 'w')) !== false) {
